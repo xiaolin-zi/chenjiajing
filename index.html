@@ -25,11 +25,58 @@ canvas {
   bottom: 10px;
   color: #ccc
 }
+
+.greetings{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    top:750px;
+}
+
+.happy{
+    display: block;
+    color: rgb(238, 131, 149);
+    font-size: 20px;
+}
+
+.btn01{
+    background-color: rgb(238, 131, 149) ;  
+    width: 100px;
+    height:  30px;
+    border-radius: 10px;
+}
 </style>
+
+
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+
 <body>
-    <canvas id="pinkboard"></canvas>
- 
+    <canvas id="pinkboard">
+        
+    </canvas>
+
+    <div class="greetings">
+        <span class="happy">天天开心</span>
+        <button class="btn01" onclick="getText()">点点我</button>
+    </div>
     <script>
+
+
+    function getText(){
+        var text = document.getElementsByClassName('happy')[0];
+        // alert(text.innerHTML);
+        axios.get('https://api.uixsj.cn/hitokoto/get?type=social').then(
+                response=>{
+                    text.innerHTML = response.data;
+                    // alert(response.data);
+                },
+                error=>{
+                    alert(error.message)
+                }
+            )
+    };
        
 /*
  * Settings
@@ -266,10 +313,7 @@ var ParticlePool = (function() {
     render();
   }, 10);
 })(document.getElementById('pinkboard'));
- 
- 
- 
- 
+
     </script>
 </body>
 </html>
